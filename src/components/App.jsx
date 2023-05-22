@@ -20,6 +20,7 @@ export function App() {
       number,
       id: nanoid(),
     };
+    
 
     const filterName = contacts.filter(contact => contact.name.toLowerCase() === newContact.name.toLowerCase()).length;
     
