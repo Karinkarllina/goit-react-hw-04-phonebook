@@ -3,7 +3,7 @@ import contactsData from './contacts.json'
 import { nanoid } from 'nanoid';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
-import ContactForm from './ContactForm/ContactForm';
+import { ContactForm } from './ContactForm/ContactForm';
 import { useLocalStorage } from 'hooks/useLocalStorage'; 
 import css from './App.module.css'
 
@@ -15,38 +15,32 @@ export function App() {
   
 
   const addContact = ({ name, number }) => {
-    
     const newContact = {
       name,
       number,
       id: nanoid(),
     };
 
-    const filterName = setFilter.filter(contact => contact.name.toLowerCase() === newContact.name.toLowerCase()).length;
+    const filterName = contacts.filter(contact => contact.name.toLowerCase() === newContact.name.toLowerCase()).length;
     
     if(filterName) {
       return alert(`${newContact.name} is already in contacts`)
     } else {
-          setContacts(contacts => ({
-          contacts: [newContact, ...contacts],
-          }));
+          setContacts([newContact, ...contacts]);
       }
   }
 
 
-   const changeFilter = event => {
-    setFilter(event.currentTarget.value.toLowerCase());
+  const changeFilter = event => {
+    setFilter(event.target.value.toLowerCase());
   };
 
 
   const deleteContact = contactId => {
-    setContacts(prevContacts => {
-      return {
-        contacts: prevContacts.contacts.filter(
+    setContacts(prevContacts => 
+      prevContacts.filter(
           contact => contact.id !== contactId
-        ),
-      };
-    });
+        ));
   };
 
 
